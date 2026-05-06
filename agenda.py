@@ -15,18 +15,16 @@ def conectar_sheets():
         "https://www.googleapis.com/auth/spreadsheets",
         "https://www.googleapis.com/auth/drive"
     ]
-    # Usa el archivo de credenciales que descargaste
-    creds = Credentials.from_service_account_file("credenciales.json", scopes=scopes)
+    
+    # Leemos la llave secreta desde la caja fuerte de Streamlit
+    import json
+    credenciales_diccionario = json.loads(st.secrets["llave_secreta"])
+    creds = Credentials.from_service_account_info(credenciales_diccionario, scopes=scopes)
     client = gspread.authorize(creds)
     
-    # Tu enlace exacto de Google Sheets
     sheet_url = "https://docs.google.com/spreadsheets/d/1KWlpEpHWvypDY6jljzrNaT2u4Xwy59Vqx0cYCTF0cSg/edit?gid=0#gid=0"
-    
-    # Abrimos la primera hoja del libro
     return client.open_by_url(sheet_url).sheet1
-
-hoja_citas = conectar_sheets()
-
+    
 # --- INTERFAZ PRINCIPAL ---
 st.title("📅 Agenda de Citas de Paty")
 st.write("Registra y consulta las citas del día. Los datos se sincronizan con la nube. ☁️")
