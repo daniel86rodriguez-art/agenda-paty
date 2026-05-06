@@ -24,6 +24,7 @@ def conectar_sheets():
     
     sheet_url = "https://docs.google.com/spreadsheets/d/1KWlpEpHWvypDY6jljzrNaT2u4Xwy59Vqx0cYCTF0cSg/edit?gid=0#gid=0"
     return client.open_by_url(sheet_url).sheet1
+    hoja_citas = conectar_sheets()
     
 # --- INTERFAZ PRINCIPAL ---
 st.title("📅 Agenda de Citas de Paty")
